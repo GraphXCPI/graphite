@@ -24,6 +24,7 @@ wasm = [
 dyn-any = { workspace = true }
 graphene-hash = { workspace = true }
 core-types = { workspace = true, features = ["serde"] }
+brush-types = { workspace = true, features = ["serde"] }
 brush-nodes = { workspace = true, features = ["serde"] }
 graphene-core = { workspace = true, features = ["serde"] }
 graphene-application-io = { workspace = true, features = ["serde"] }
