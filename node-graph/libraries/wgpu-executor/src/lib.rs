@@ -109,8 +109,14 @@ impl WgpuExecutor {
 		pipeline.init::<P>(self);
 	}
 
+	/// A pooled `Rgba8Unorm` texture; its contents are stale, so clear or fully overwrite it.
 	pub fn request_texture(&self, size: UVec2) -> Texture {
-		self.inner.texture_cache.lock().unwrap().request_texture(&self.context().device, size)
+		self.request_texture_with_format(size, wgpu::TextureFormat::Rgba8Unorm)
+	}
+
+	/// A pooled texture; its contents are stale, so clear or fully overwrite it.
+	pub fn request_texture_with_format(&self, size: UVec2, format: wgpu::TextureFormat) -> Texture {
+		self.inner.texture_cache.lock().unwrap().request_texture(&self.context().device, size, format)
 	}
 }
 
