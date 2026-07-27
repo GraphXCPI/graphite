@@ -12,12 +12,11 @@ use std::sync::{Arc, Mutex};
 
 const STALE_EPOCHS: u64 = 2;
 const MAX_VIEWS: usize = 3;
-const MAX_PIXELS: u64 = 48 * 1024 * 1024;
 
 #[derive(Clone)]
 pub struct BrushCache {
 	state: Arc<Mutex<State>>,
-	nonce: u64, // Used to avoid deduplication of cache entries across different brush nodes.
+	nonce: u64, // Avoid deduplication of cache entries across different brush nodes.
 }
 
 impl Default for BrushCache {
@@ -95,10 +94,6 @@ impl Slot {
 	fn view(&self) -> DMat2 {
 		self.footprint.transform.matrix2
 	}
-
-	fn pixels(&self) -> u64 {
-		self.footprint.resolution.x as u64 * self.footprint.resolution.y as u64
-	}
 }
 
 impl State {
@@ -139,11 +134,6 @@ impl State {
 			let group = self.slots.iter().take_while(|slot| slot.view() == front).count();
 			self.slots.drain(..group.max(1));
 		}
-		let mut pixels: u64 = self.slots.iter().map(Slot::pixels).sum();
-
-		while pixels > MAX_PIXELS && self.slots.len() > 1 {
-			pixels -= self.slots.remove(0).pixels();
-		}
 	}
 }
 
@@ -172,10 +162,6 @@ mod tests {
 
 	fn live(cache: &BrushCache) -> usize {
 		cache.state.lock().unwrap().slots.len()
-	}
-
-	fn pixels(cache: &BrushCache) -> u64 {
-		cache.state.lock().unwrap().slots.iter().map(Slot::pixels).sum()
 	}
 
 	fn render(cache: &BrushCache, footprint: &Footprint) -> bool {
@@ -208,24 +194,10 @@ mod tests {
 		for step in 0..30 {
 			render(&cache, &view(1., 0., DVec2::splat(step as f64 * 100.)));
 		}
-		assert!(live(&cache) < 30);
-		assert!(pixels(&cache) <= MAX_PIXELS);
 		for step in 1..=3 {
 			render(&cache, &view(1. + step as f64, 0., DVec2::ZERO));
 		}
 		assert_eq!(live(&cache), 3);
-	}
-
-	#[test]
-	fn oversized_footprint_is_still_cached() {
-		let cache = BrushCache::default();
-		let huge = Footprint {
-			resolution: UVec2::splat(8192),
-			..view(1., 0., DVec2::ZERO)
-		};
-		assert!(!render(&cache, &huge));
-		assert!(render(&cache, &huge));
-		assert_eq!(live(&cache), 1);
 	}
 
 	#[test]
