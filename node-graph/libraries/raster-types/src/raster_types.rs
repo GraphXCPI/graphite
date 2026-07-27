@@ -140,7 +140,7 @@ mod cpu {
 
 pub use gpu::GPU;
 #[cfg(feature = "wgpu")]
-pub use gpu::Texture;
+pub use gpu::{Texture, WeakTexture};
 
 #[cfg(feature = "wgpu")]
 mod gpu {
@@ -168,6 +168,28 @@ mod gpu {
 		/// True when this is the only live clone; the texture cache uses this as its free test.
 		pub fn is_unique(&self) -> bool {
 			Arc::strong_count(&self.0) == 1
+		}
+
+		/// True while any [`WeakTexture`] parks this texture; the texture cache never re-issues
+		/// a parked texture, only destroys it under memory pressure.
+		pub fn is_parked(&self) -> bool {
+			Arc::weak_count(&self.0) > 0
+		}
+
+		pub fn downgrade(&self) -> WeakTexture {
+			WeakTexture(Arc::downgrade(&self.0))
+		}
+	}
+
+	/// A parked handle to a pooled texture. Upgrading succeeds only while the texture cache
+	/// still holds the texture, and never-re-issued parking means success implies the contents
+	/// are exactly as they were at [`Texture::downgrade`].
+	#[derive(Clone, Debug)]
+	pub struct WeakTexture(std::sync::Weak<TextureInner>);
+
+	impl WeakTexture {
+		pub fn upgrade(&self) -> Option<Texture> {
+			self.0.upgrade().map(Texture)
 		}
 	}
 

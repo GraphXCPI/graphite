@@ -22,7 +22,7 @@ impl TextureCache {
 		if let Some(pos) = self
 			.textures
 			.iter()
-			.position(|texture| UVec2::new(texture.width(), texture.height()) == size && texture.format() == format && texture.is_unique())
+			.position(|texture| UVec2::new(texture.width(), texture.height()) == size && texture.format() == format && texture.is_unique() && !texture.is_parked())
 		{
 			let entry = self.textures.remove(pos).unwrap();
 			let texture = entry.clone();
@@ -73,17 +73,20 @@ impl TextureCache {
 			return;
 		}
 
-		self.textures.retain(|texture| {
-			if free_bytes + incoming_bytes <= max_free_bytes {
-				return true;
-			}
-			if texture.is_unique() {
-				free_bytes -= texture.memory_size_estimate();
-				false
-			} else {
-				true
-			}
-		});
+		// Free textures go first; parked ones are sacrificed only when that wasn't enough.
+		for parked in [false, true] {
+			self.textures.retain(|texture| {
+				if free_bytes + incoming_bytes <= max_free_bytes {
+					return true;
+				}
+				if texture.is_unique() && texture.is_parked() == parked {
+					free_bytes -= texture.memory_size_estimate();
+					false
+				} else {
+					true
+				}
+			});
+		}
 	}
 }
 
