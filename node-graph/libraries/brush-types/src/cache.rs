@@ -14,17 +14,29 @@ const STALE_EPOCHS: u64 = 2;
 const MAX_VIEWS: usize = 3;
 const MAX_PIXELS: u64 = 48 * 1024 * 1024;
 
-#[derive(Clone, Default)]
-pub struct BrushCache(Arc<Mutex<State>>);
+#[derive(Clone)]
+pub struct BrushCache {
+	state: Arc<Mutex<State>>,
+	nonce: u64, // Used to avoid deduplication of cache entries across different brush nodes.
+}
+
+impl Default for BrushCache {
+	fn default() -> Self {
+		Self {
+			state: Default::default(),
+			nonce: core_types::uuid::generate_uuid(),
+		}
+	}
+}
 
 impl BrushCache {
 	pub fn take<S: std::any::Any + Send + Sync>(&self, footprint: &Footprint) -> Option<S> {
-		let state = self.0.lock().unwrap().take(footprint);
+		let state = self.state.lock().unwrap().take(footprint);
 		state.and_then(|state| state.downcast().ok()).map(|state| *state)
 	}
 
 	pub fn store<S: std::any::Any + Send + Sync>(&self, footprint: &Footprint, state: S) {
-		self.0.lock().unwrap().store(footprint, Box::new(state));
+		self.state.lock().unwrap().store(footprint, Box::new(state));
 	}
 }
 
@@ -36,12 +48,14 @@ impl PartialEq for BrushCache {
 
 impl std::fmt::Debug for BrushCache {
 	fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-		f.debug_struct("BrushCache").field("slots", &self.0.lock().unwrap().slots.len()).finish()
+		f.debug_struct("BrushCache").field("slots", &self.state.lock().unwrap().slots.len()).finish()
 	}
 }
 
 impl core_types::CacheHash for BrushCache {
-	fn cache_hash<H: core::hash::Hasher>(&self, _: &mut H) {}
+	fn cache_hash<H: core::hash::Hasher>(&self, state: &mut H) {
+		state.write_u64(self.nonce);
+	}
 }
 
 unsafe impl dyn_any::StaticType for BrushCache {
@@ -157,11 +171,11 @@ mod tests {
 	}
 
 	fn live(cache: &BrushCache) -> usize {
-		cache.0.lock().unwrap().slots.len()
+		cache.state.lock().unwrap().slots.len()
 	}
 
 	fn pixels(cache: &BrushCache) -> u64 {
-		cache.0.lock().unwrap().slots.iter().map(Slot::pixels).sum()
+		cache.state.lock().unwrap().slots.iter().map(Slot::pixels).sum()
 	}
 
 	fn render(cache: &BrushCache, footprint: &Footprint) -> bool {
