@@ -73,17 +73,19 @@ impl TextureCache {
 			return;
 		}
 
-		self.textures.retain(|texture| {
-			if free_bytes + incoming_bytes <= max_free_bytes {
-				return true;
-			}
-			if !texture.is_shared() {
-				free_bytes -= texture.memory_size_estimate();
-				false
-			} else {
-				true
-			}
-		});
+		for parked in [false, true] {
+			self.textures.retain(|texture| {
+				if free_bytes + incoming_bytes <= max_free_bytes {
+					return true;
+				}
+				if !texture.is_shared() && texture.is_weakly_shared() == parked {
+					free_bytes -= texture.memory_size_estimate();
+					false
+				} else {
+					true
+				}
+			});
+		}
 	}
 }
 
