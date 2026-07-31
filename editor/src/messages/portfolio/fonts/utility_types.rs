@@ -14,10 +14,20 @@ const FONT_LIST_API: &str = "/api/tools/graphite/font-list";
 /// an absolute URL and will not accept a bare path. Falls back to the path itself if no
 /// browser `window` is available (e.g. non-wasm test builds), which will simply fail to parse
 /// as a URL and surface as a fetch error rather than panicking.
+///
+/// Also forwards the embedding page's own query string (e.g. `?job=<id>`) onto the request.
+/// Studio serves this editor at a job-scoped URL (`web/src/lib/toolBridge.ts` sets the iframe
+/// `src`), so this is how the font-list backend endpoint learns which job/account's font
+/// catalog to return without any additional postMessage round-trip or Rust-side change beyond
+/// this one line -- the query string is opaque to this crate, Studio owns its shape.
 fn same_origin_font_list_url() -> String {
 	web_sys::window()
-		.and_then(|window| window.location().origin().ok())
-		.map(|origin| format!("{origin}{FONT_LIST_API}"))
+		.and_then(|window| {
+			let location = window.location();
+			let origin = location.origin().ok()?;
+			let search = location.search().unwrap_or_default();
+			Some(format!("{origin}{FONT_LIST_API}{search}"))
+		})
 		.unwrap_or_else(|| FONT_LIST_API.to_string())
 }
 
