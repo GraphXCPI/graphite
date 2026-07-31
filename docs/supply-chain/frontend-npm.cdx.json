@@ -1,0 +1,515 @@
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.6",
+  "version": 1,
+  "serialNumber": "urn:uuid:9cbf1acc-0207-4cc4-8f0b-f0ba5438ac19",
+  "metadata": {
+    "timestamp": "2026-07-31T22:42:27.502Z",
+    "tools": {
+      "components": [
+        {
+          "type": "application",
+          "name": "npm",
+          "version": "11.9.0"
+        },
+        {
+          "type": "application",
+          "name": "cyclonedx-npm",
+          "group": "@cyclonedx",
+          "version": "6.0.0",
+          "author": "Jan Kowalleck",
+          "description": "Create CycloneDX Software Bill of Materials (SBOM) from NPM projects.",
+          "licenses": [
+            {
+              "license": {
+                "id": "Apache-2.0"
+              }
+            }
+          ],
+          "externalReferences": [
+            {
+              "url": "git+https://github.com/CycloneDX/cyclonedx-node-npm.git",
+              "type": "vcs",
+              "comment": "as detected from PackageJson property \"repository.url\""
+            },
+            {
+              "url": "https://github.com/CycloneDX/cyclonedx-node-npm#readme",
+              "type": "website",
+              "comment": "as detected from PackageJson property \"homepage\""
+            },
+            {
+              "url": "https://github.com/CycloneDX/cyclonedx-node-npm/issues",
+              "type": "issue-tracker",
+              "comment": "as detected from PackageJson property \"bugs.url\""
+            }
+          ]
+        },
+        {
+          "type": "library",
+          "name": "cyclonedx-library",
+          "group": "@cyclonedx",
+          "version": "10.1.0",
+          "author": "Jan Kowalleck",
+          "description": "Core functionality of CycloneDX for JavaScript (Node.js or WebBrowser).",
+          "licenses": [
+            {
+              "license": {
+                "id": "Apache-2.0"
+              }
+            }
+          ],
+          "externalReferences": [
+            {
+              "url": "git+https://github.com/CycloneDX/cyclonedx-javascript-library.git",
+              "type": "vcs",
+              "comment": "as detected from PackageJson property \"repository.url\""
+            },
+            {
+              "url": "https://github.com/CycloneDX/cyclonedx-javascript-library#readme",
+              "type": "website",
+              "comment": "as detected from PackageJson property \"homepage\""
+            },
+            {
+              "url": "https://github.com/CycloneDX/cyclonedx-javascript-library/issues",
+              "type": "issue-tracker",
+              "comment": "as detected from PackageJson property \"bugs.url\""
+            }
+          ]
+        }
+      ]
+    },
+    "component": {
+      "type": "application",
+      "name": "graphite-web-frontend",
+      "bom-ref": "graphite-web-frontend",
+      "author": "Graphite Authors",
+      "description": "Graphite's web app frontend.",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/graphite-web-frontend?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2FGraphiteEditor%2FGraphite.git",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/GraphiteEditor/Graphite.git",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "https://graphite.art",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/GraphiteEditor/Graphite/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:private",
+          "value": "true"
+        },
+        {
+          "name": "cdx:npm:package:path",
+          "value": ""
+        }
+      ]
+    }
+  },
+  "components": [
+    {
+      "type": "library",
+      "name": "core",
+      "group": "@emnapi",
+      "version": "1.9.2",
+      "bom-ref": "graphite-web-frontend|@emnapi/core@1.9.2",
+      "author": "toyobayashi",
+      "description": "emnapi core",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/%40emnapi/core@1.9.2",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/toyobayashi/emnapi.git",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "https://github.com/toyobayashi/emnapi#readme",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/toyobayashi/emnapi/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/@emnapi/core/-/core-1.9.2.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:extraneous",
+          "value": "true"
+        },
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/@emnapi/core"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "runtime",
+      "group": "@emnapi",
+      "version": "1.9.2",
+      "bom-ref": "graphite-web-frontend|@emnapi/runtime@1.9.2",
+      "author": "toyobayashi",
+      "description": "emnapi runtime",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/%40emnapi/runtime@1.9.2",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/toyobayashi/emnapi.git",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "https://github.com/toyobayashi/emnapi#readme",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/toyobayashi/emnapi/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/@emnapi/runtime/-/runtime-1.9.2.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:extraneous",
+          "value": "true"
+        },
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/@emnapi/runtime"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "wasi-threads",
+      "group": "@emnapi",
+      "version": "1.2.1",
+      "bom-ref": "graphite-web-frontend|@emnapi/wasi-threads@1.2.1",
+      "author": "toyobayashi",
+      "description": "WASI threads proposal implementation in JavaScript",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/%40emnapi/wasi-threads@1.2.1",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/toyobayashi/emnapi.git",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "https://github.com/toyobayashi/emnapi#readme",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/toyobayashi/emnapi/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/@emnapi/wasi-threads/-/wasi-threads-1.2.1.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:extraneous",
+          "value": "true"
+        },
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/@emnapi/wasi-threads"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "wasm-util",
+      "group": "@tybys",
+      "version": "0.10.1",
+      "bom-ref": "graphite-web-frontend|@tybys/wasm-util@0.10.1",
+      "author": "toyobayashi",
+      "description": "WASI polyfill for browser and some wasm util",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/%40tybys/wasm-util@0.10.1",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/toyobayashi/wasm-util.git",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "https://github.com/toyobayashi/wasm-util#readme",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/toyobayashi/wasm-util/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/@tybys/wasm-util/-/wasm-util-0.10.1.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:extraneous",
+          "value": "true"
+        },
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/@tybys/wasm-util"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "source-code-pro",
+      "version": "2.42.0",
+      "bom-ref": "graphite-web-frontend|source-code-pro@2.42.0",
+      "author": "Paul D. Hunt",
+      "description": "Source Code Pro is a set of OpenType fonts that have been designed to work well in user interface (UI) environments.",
+      "licenses": [
+        {
+          "license": {
+            "id": "OFL-1.1",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/source-code-pro@2.42.0",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/adobe-fonts/source-code-pro.git#release",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "https://adobe-fonts.github.io/source-code-pro",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/adobe-fonts/source-code-pro/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/source-code-pro/-/source-code-pro-2.42.0.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/source-code-pro"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "source-sans-pro",
+      "version": "2.45.0",
+      "bom-ref": "graphite-web-frontend|source-sans-pro@2.45.0",
+      "author": "Paul D. Hunt",
+      "description": "Source Sans Pro is a set of OpenType fonts that have been designed to work well in user interface (UI) environments.",
+      "licenses": [
+        {
+          "license": {
+            "name": "SIL Open Font License 1.1",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/source-sans-pro@2.45.0",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/adobe-fonts/source-sans-pro.git#release",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "https://adobe-fonts.github.io/source-sans-pro",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/adobe-fonts/source-sans-pro/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/source-sans-pro/-/source-sans-pro-2.45.0.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/source-sans-pro"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "tslib",
+      "version": "2.8.1",
+      "bom-ref": "graphite-web-frontend|tslib@2.8.1",
+      "author": "Microsoft Corp.",
+      "description": "Runtime library for TypeScript helper functions",
+      "licenses": [
+        {
+          "license": {
+            "id": "0BSD",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/tslib@2.8.1",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/Microsoft/tslib.git",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "https://www.typescriptlang.org/",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/Microsoft/TypeScript/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/tslib/-/tslib-2.8.1.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:extraneous",
+          "value": "true"
+        },
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/tslib"
+        }
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "ref": "graphite-web-frontend",
+      "dependsOn": [
+        "graphite-web-frontend|@emnapi/core@1.9.2",
+        "graphite-web-frontend|@emnapi/runtime@1.9.2",
+        "graphite-web-frontend|@emnapi/wasi-threads@1.2.1",
+        "graphite-web-frontend|@tybys/wasm-util@0.10.1",
+        "graphite-web-frontend|source-code-pro@2.42.0",
+        "graphite-web-frontend|source-sans-pro@2.45.0",
+        "graphite-web-frontend|tslib@2.8.1"
+      ]
+    },
+    {
+      "ref": "graphite-web-frontend|@emnapi/core@1.9.2",
+      "dependsOn": [
+        "graphite-web-frontend|@emnapi/wasi-threads@1.2.1",
+        "graphite-web-frontend|tslib@2.8.1"
+      ]
+    },
+    {
+      "ref": "graphite-web-frontend|@emnapi/runtime@1.9.2",
+      "dependsOn": [
+        "graphite-web-frontend|tslib@2.8.1"
+      ]
+    },
+    {
+      "ref": "graphite-web-frontend|@emnapi/wasi-threads@1.2.1",
+      "dependsOn": [
+        "graphite-web-frontend|tslib@2.8.1"
+      ]
+    },
+    {
+      "ref": "graphite-web-frontend|@tybys/wasm-util@0.10.1",
+      "dependsOn": [
+        "graphite-web-frontend|tslib@2.8.1"
+      ]
+    },
+    {
+      "ref": "graphite-web-frontend|source-code-pro@2.42.0"
+    },
+    {
+      "ref": "graphite-web-frontend|source-sans-pro@2.45.0"
+    },
+    {
+      "ref": "graphite-web-frontend|tslib@2.8.1"
+    }
+  ]
+}
