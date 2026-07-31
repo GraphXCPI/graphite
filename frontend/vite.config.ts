@@ -132,6 +132,14 @@ function thirdPartyLicenses(): PluginOption {
 		},
 		writeBundle(options) {
 			copyFileSync(path.resolve(projectRootDir, "third-party-licenses.txt"), path.join(options.dir || "dist", "third-party-licenses.txt"));
+
+			// GraphX Studio fork (Track D, D1b): Graphite's own top-level LICENSE.txt
+			// (Apache-2.0) wasn't previously copied into `dist/` -- only the generated
+			// third-party-licenses.txt was. D1b's AC1 requires LICENSE/NOTICE files to ship in
+			// the served bundle (asserted by a build test on the studio side), so this fork adds
+			// the missing copy step. There's no separate upstream NOTICE file at this pin
+			// (Apache-2.0 §4(d) only requires carrying one forward if upstream ships one).
+			copyFileSync(path.resolve(projectRootDir, "..", "LICENSE.txt"), path.join(options.dir || "dist", "LICENSE.txt"));
 		},
 	};
 }
@@ -139,7 +147,7 @@ function thirdPartyLicenses(): PluginOption {
 function serviceWorker(): PluginOption {
 	// Files that should never be precached
 	const EXCLUDED_FILES = new Set(["service-worker.js"]);
-	const DEFERRED_PREFIXES = ["demo-artwork/", "third-party-licenses.txt"];
+	const DEFERRED_PREFIXES = ["demo-artwork/", "third-party-licenses.txt", "LICENSE.txt"];
 
 	function collectFiles(directory: string, prefix: string): string[] {
 		const results: string[] = [];
