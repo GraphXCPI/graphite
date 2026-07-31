@@ -5,6 +5,7 @@ import type { Writable } from "svelte/store";
 import type { SubscriptionsRouter } from "/src/subscriptions-router";
 import { downloadFile, downloadFileBlob, upload } from "/src/utility-functions/files";
 import { rasterizeSVG } from "/src/utility-functions/rasterization";
+import { initToolBridge, isToolBridgeActive, onToolBridgeMessage, postDocumentDirty, postExportRequest, postSaveRequest, toolBridgeDocumentId } from "/src/utility-functions/tool-bridge";
 import { patchLayout } from "/src/utility-functions/widgets";
 import type { EditorWrapper, DocumentInfo, LayerPanelEntry, LayerStructureEntry, Layout, WorkspacePanelLayout } from "/wrapper/pkg/graphite_wasm_wrapper";
 
@@ -28,6 +29,10 @@ const initialState: PortfolioStoreState = {
 };
 
 let subscriptionsRouter: SubscriptionsRouter | undefined = undefined;
+
+// GraphX Studio fork (Track D, D1b): unsubscribe handle for the Tool Bridge's inbound message
+// listener, torn down alongside the rest of this store's subscriptions.
+let unsubscribeToolBridge: (() => void) | undefined = undefined;
 
 // Store state persisted across HMR to maintain reactive subscriptions in the component tree
 const store: Writable<PortfolioStoreState> = import.meta.hot?.data?.store || writable<PortfolioStoreState>(initialState);
@@ -63,12 +68,44 @@ export function createPortfolioStore(subscriptions: SubscriptionsRouter, editor:
 
 	subscriptionsRouter = subscriptions;
 
+	// GraphX Studio fork (Track D, D1b): try the Tool Bridge handshake; every handler below
+	// checks `isToolBridgeActive()` at call time rather than awaiting this, since by the time a
+	// user (or the host) triggers any of these messages, the short init window has resolved.
+	void initToolBridge();
+
+	unsubscribeToolBridge = onToolBridgeMessage((message) => {
+		if (message.type !== "loadDocument") return;
+
+		if (message.pendingImportSvg) {
+			// TECH-D §4.3 "generate": the bridge stored an agent-submitted SVG as a pending
+			// import against a new tool-doc; create the empty document and paste the SVG into
+			// it as the document's initial content.
+			editor.newDocumentWithName(message.name || undefined);
+			editor.pasteSvg(message.name || undefined, message.pendingImportSvg, undefined, undefined, undefined, undefined);
+		} else if (message.content) {
+			editor.openFile(message.name, new Uint8Array(message.content));
+		}
+	});
+
 	subscriptions.subscribeFrontendMessage("UpdateOpenDocumentsList", (data) => {
 		update((state) => {
 			state.documents = data.openDocuments;
 			if (state.documents.length === 0) state.activeDocumentIndex = 0;
 			return state;
 		});
+
+		// GraphX Studio fork (Track D, D1b): forward dirty state to a bridged host so it can
+		// show a dirty-state indicator (TECH-D §7's "Frontend" deliverable). A bridged embed
+		// manages exactly one tool-doc per session, so "any open document unsaved" is the
+		// dirty signal for that one tool-doc.
+		if (isToolBridgeActive()) {
+			const docId = toolBridgeDocumentId();
+			if (docId)
+				postDocumentDirty(
+					docId,
+					data.openDocuments.some((doc) => !doc.is_saved),
+				);
+		}
 	});
 
 	subscriptions.subscribeFrontendMessage("UpdateActiveDocument", (data) => {
@@ -94,6 +131,15 @@ export function createPortfolioStore(subscriptions: SubscriptionsRouter, editor:
 	});
 
 	subscriptions.subscribeFrontendMessage("TriggerOpen", async () => {
+		if (isToolBridgeActive()) {
+			// GraphX Studio fork (Track D, D1b): a bridged embed manages exactly one tool-doc
+			// per session (TECH-D §4.1); the bridge's message schema has no "pick a different
+			// tool-doc" request, and Studio has no such picker UI yet (job assets inside tools
+			// is D2 scope). Recorded gap, not a silent native fallback: deliberately a no-op
+			// rather than opening the browser's native file picker, which would break the
+			// "one app" framing this patch exists to satisfy.
+			return;
+		}
 		const files = await upload(`image/*,.${editor.fileExtension()}`, "data", true);
 		files.forEach((file) => editor.openFile(file.filename, file.content));
 	});
@@ -105,15 +151,31 @@ export function createPortfolioStore(subscriptions: SubscriptionsRouter, editor:
 	});
 
 	subscriptions.subscribeFrontendMessage("TriggerSaveDocument", (data) => {
+		if (isToolBridgeActive()) {
+			const docId = toolBridgeDocumentId();
+			if (docId) postSaveRequest(docId, data.name, data.content);
+			return;
+		}
 		downloadFile(data.name, data.content);
 	});
 
 	subscriptions.subscribeFrontendMessage("TriggerSaveFile", (data) => {
+		if (isToolBridgeActive()) {
+			const docId = toolBridgeDocumentId();
+			if (docId) postSaveRequest(docId, data.name, data.content);
+			return;
+		}
 		downloadFile(data.name, data.content);
 	});
 
 	subscriptions.subscribeFrontendMessage("TriggerExportImage", async (data) => {
 		const { svg, name, mime, size } = data;
+
+		if (isToolBridgeActive()) {
+			const docId = toolBridgeDocumentId();
+			if (docId) postExportRequest(docId, name, mime, size, svg);
+			return;
+		}
 
 		// Fill the canvas with white if it'll be a JPEG (which does not support transparency and defaults to black)
 		const backgroundColor = mime.endsWith("jpeg") ? "white" : undefined;
@@ -187,6 +249,9 @@ export function createPortfolioStore(subscriptions: SubscriptionsRouter, editor:
 export function destroyPortfolioStore() {
 	const subscriptions = subscriptionsRouter;
 	if (!subscriptions) return;
+
+	unsubscribeToolBridge?.();
+	unsubscribeToolBridge = undefined;
 
 	subscriptions.unsubscribeFrontendMessage("UpdateOpenDocumentsList");
 	subscriptions.unsubscribeFrontendMessage("UpdateActiveDocument");

@@ -435,6 +435,18 @@ impl EditorWrapper {
 		self.dispatch(message);
 	}
 
+	/// GraphX Studio fork (Track D, D1b): create and activate a new, empty document by name
+	/// with no dialog prompt, for the Tool Bridge's headless "generate" path (TECH-D §4.3): the
+	/// bridge stores an agent-submitted SVG as a pending import against a new tool-doc, and the
+	/// embed's adapter creates the empty document this way before calling `pasteSvg` into it.
+	/// An empty `name` resolves to the engine's normal auto-naming ("Untitled Document N"),
+	/// same as `newDocumentDialog`'s dialog flow does on confirm.
+	#[wasm_bindgen(js_name = newDocumentWithName)]
+	pub fn new_document_with_name(&self, name: Option<String>) {
+		let message = PortfolioMessage::NewDocumentWithName { name: name.unwrap_or_default() };
+		self.dispatch(message);
+	}
+
 	#[wasm_bindgen(js_name = openFile)]
 	pub fn open_file(&self, path: String, content: Vec<u8>) {
 		let message = PortfolioMessage::OpenFile { path: PathBuf::from(path), content };
