@@ -7,7 +7,13 @@ const STATIC_CACHE_NAME = `static-${SERVICE_WORKER_CONTENT_HASH}`;
 const RUNTIME_ASSETS = "runtime-assets";
 const RUNTIME_FONTS = "runtime-fonts";
 
-const FONT_LIST_API = "https://api.graphite.art/font-list";
+// GraphX Studio fork (Track D, D1b): originally `https://api.graphite.art/font-list`.
+// Repointed at a same-origin Tool-Bridge endpoint (see the matching patch in
+// `editor/src/messages/portfolio/fonts/utility_types.rs`) so this service worker never
+// touches an external host. Stored as an absolute same-origin URL (not a bare path) so the
+// `url.href.startsWith(FONT_LIST_API)` check below in the fetch handler keeps working exactly
+// as it did against the previous absolute URL.
+const FONT_LIST_API = new URL("/api/tools/graphite/font-list", self.location.origin).href;
 
 // Build a set of precache URLs for quick lookup during fetch
 const PRECACHE_URLS = new Set(PRECACHE_MANIFEST.map((entry) => new URL(entry.url, self.location.origin).href));

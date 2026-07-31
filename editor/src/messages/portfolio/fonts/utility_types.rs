@@ -2,7 +2,24 @@ use crate::messages::network::Client;
 use graphene_std::text::Font;
 use std::collections::HashMap;
 
-const FONT_LIST_API: &str = "https://api.graphite.art/font-list";
+// GraphX Studio fork (Track D, D1b): originally `https://api.graphite.art/font-list`.
+// Repointed at a same-origin, relative Tool-Bridge endpoint so the embedded editor never
+// phones home for fonts and instead serves the host's job + brand-kit font catalog. The
+// response shape (`{items: [{family, variants, files}]}`) is unchanged, so no parsing logic
+// below needed to change -- only the URL and where it's served from.
+const FONT_LIST_API: &str = "/api/tools/graphite/font-list";
+
+/// Resolves `FONT_LIST_API` (a same-origin path) against the page's own origin, since
+/// `reqwest`'s `Url` parser (used by `Client::fetch` on every target, including wasm) requires
+/// an absolute URL and will not accept a bare path. Falls back to the path itself if no
+/// browser `window` is available (e.g. non-wasm test builds), which will simply fail to parse
+/// as a URL and surface as a fetch error rather than panicking.
+fn same_origin_font_list_url() -> String {
+	web_sys::window()
+		.and_then(|window| window.location().origin().ok())
+		.map(|origin| format!("{origin}{FONT_LIST_API}"))
+		.unwrap_or_else(|| FONT_LIST_API.to_string())
+}
 
 #[derive(serde::Deserialize)]
 struct FontListApiResponse {
@@ -18,7 +35,7 @@ struct FontListApiFamily {
 
 impl FontCatalog {
 	pub async fn load_from_api(client: &Client) -> Option<Self> {
-		let Some(bytes) = client.fetch(FONT_LIST_API).await else {
+		let Some(bytes) = client.fetch(same_origin_font_list_url()).await else {
 			log::error!("failed to fetch font catalog from API");
 			return None;
 		};
@@ -154,11 +171,16 @@ impl FontCatalogStyle {
 		FontCatalogStyle { weight, italic, url: url.into() }
 	}
 
-	/// Get the URL for the stylesheet for loading a font preview for this style of the given family name, subsetted to only the letters in the family name.
-	pub fn preview_url(&self, family: impl Into<String>) -> String {
-		let name = family.into().replace(' ', "+");
-		let italic = if self.italic { "ital," } else { "" };
-		let weight = self.weight;
-		format!("https://fonts.googleapis.com/css2?display=swap&family={name}:{italic}wght@{weight}&text={name}")
+	/// GraphX Studio fork (Track D, D1b): dropped. This previously built a
+	/// `https://fonts.googleapis.com/css2?...` URL (Google Fonts' CSS API) to load a live
+	/// font-preview stylesheet for the font-family dropdown. We have no same-origin
+	/// equivalent of that per-family, per-weight subsetted CSS service, and the zero-external-
+	/// network requirement (D1b AC1) forbids calling the real one. Returning an empty string
+	/// is a clean drop, not a broken link: `MenuList.svelte` only renders the `<link>` preview
+	/// element `{#if entry.font}` (a JS/TS truthiness check), so an empty string is treated
+	/// exactly like "no preview" -- the dropdown still shows the family name, just rendered in
+	/// the UI's default font instead of its own. No frontend change was needed for this.
+	pub fn preview_url(&self, _family: impl Into<String>) -> String {
+		String::new()
 	}
 }
