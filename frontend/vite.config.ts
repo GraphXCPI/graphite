@@ -28,7 +28,15 @@ export default defineConfig(({ mode }) => {
 		base: BASE_PATH,
 		plugins: [svelteGlobalStyles(), webkitUserSelectPrefix(), svelte(), staticAssets(), mode !== "native" && thirdPartyLicenses(), mode !== "native" && serviceWorker()],
 		resolve: {
-			alias: [{ find: /\/..\/branding\/(.*\.svg)/, replacement: path.resolve(projectRootDir, "../branding", "$1?raw") }],
+			// GraphX Studio fork (Track D, D1b, review round 1 / B6): was
+			// `path.resolve(projectRootDir, "../branding", "$1?raw")`. `branding/LICENSE.txt`
+			// permits its Assets ("logos, icons, and branding materials") only "as part of
+			// unmodified build artifacts produced from the official Graphite repository ...
+			// using the official build process" -- a patched, env-var-configured fork build
+			// does not qualify. Every icon import this repo has (frontend/src/icons.ts,
+			// exclusively) now resolves to frontend/vendor-icons/ instead, at the same
+			// relative paths -- see that directory's README.md for what it contains and why.
+			alias: [{ find: /\/..\/branding\/(.*\.svg)/, replacement: path.resolve(projectRootDir, "vendor-icons", "$1?raw") }],
 		},
 		server: {
 			port: 8080,
@@ -78,7 +86,14 @@ function webkitUserSelectPrefix(): PluginOption {
 function staticAssets(): PluginOption {
 	const STATIC_ASSET_DIRS: { source: string; urlPrefix: string }[] = [
 		{ source: "../demo-artwork", urlPrefix: "/demo-artwork" },
-		{ source: "../branding/favicons", urlPrefix: "" },
+		// GraphX Studio fork (Track D, D1b, review round 1 / B6): the
+		// `{ source: "../branding/favicons", urlPrefix: "" }` entry that used to be here is
+		// REMOVED, not relocated -- branding/LICENSE.txt restricts these Assets to unmodified
+		// official builds (see the icon-alias comment in resolve.alias above for the same
+		// reasoning). Dropping favicons entirely has no visible effect on the embedded product:
+		// Studio only ever loads this build inside a same-origin iframe, and a browser only
+		// ever looks at a TOP-LEVEL page's favicon links, never a framed document's. Opening
+		// this build standalone (dev) just shows a generic browser-default tab icon instead.
 	];
 
 	// MIME types for all file extensions found in the static asset directories
