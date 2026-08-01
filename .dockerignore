@@ -1,0 +1,12 @@
+# Track D (D1b, review round 1 / B1): keeps the Docker build context this
+# repo is used as (via `docker build --build-context graphite-context=<this
+# checkout>` in the studio repo's Dockerfile/web/Dockerfile) small and fast.
+# Without this, `target/` alone (multi-GB Rust build artifacts) would be
+# sent to the Docker daemon on every build. `.git/` is DELIBERATELY kept
+# (not excluded): the studio Dockerfiles' graphite-builder stage reads
+# `git -C /graphite rev-parse HEAD` to verify the exact commit it was
+# actually given matches the pinned ref it was told to expect, rather than
+# trusting the build-context path's contents blindly.
+target/
+frontend/dist/
+frontend/node_modules/
