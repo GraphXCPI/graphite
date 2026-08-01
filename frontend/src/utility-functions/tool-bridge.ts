@@ -59,6 +59,17 @@ function handleWindowMessage(event: MessageEvent) {
 		parentOrigin = event.origin;
 		parentSource = event.source ?? undefined;
 		activeDocId = data.docId;
+		// GraphX Studio fork (Track D, D1b, review round 1): acknowledge immediately. The
+		// host may have sent `init` (and a `loadDocument` right behind it) BEFORE this
+		// listener was even registered -- wasm init (App.svelte's onMount, which is what
+		// eventually calls createPortfolioStore -> initToolBridge) is async and can take
+		// noticeably longer than the iframe's DOM `load` event the host fires on, so a
+		// single fire-and-forget `init` from the host is a real, reproducible race (caught
+		// by a real AppShell-driven Playwright run, never by a bare-server smoke test that
+		// skips the handshake entirely). This ack tells a HOST THAT RETRIES `init` (see
+		// web/src/lib/toolBridge.ts's ToolBridgeHost) that it's now safe to send
+		// `loadDocument` exactly once, instead of guessing a fixed delay.
+		if (data.docId) post({ v: 1, type: "documentDirty", docId: data.docId, dirty: false });
 	}
 
 	// Once active, only accept further messages from the exact origin AND window/frame object
