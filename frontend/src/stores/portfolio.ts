@@ -146,12 +146,19 @@ export function createPortfolioStore(subscriptions: SubscriptionsRouter, editor:
 
 	subscriptions.subscribeFrontendMessage("TriggerOpen", async () => {
 		if (isToolBridgeActive()) {
-			// GraphX Studio fork (Track D, D1b): a bridged embed manages exactly one tool-doc
-			// per session (TECH-D §4.1); the bridge's message schema has no "pick a different
-			// tool-doc" request, and Studio has no such picker UI yet (job assets inside tools
-			// is D2 scope). Recorded gap, not a silent native fallback: deliberately a no-op
-			// rather than opening the browser's native file picker, which would break the
-			// "one app" framing this patch exists to satisfy.
+			// GraphX Studio fork (Track D, D1b, review round 1): a bridged embed manages exactly
+			// one tool-doc per session (TECH-D §4.1); the bridge's message schema has no "pick a
+			// different tool-doc" request, and Studio has no such picker UI yet (job assets
+			// inside tools is D2 scope). Recorded gap: this cannot be made functional yet -- but
+			// per review round 1's binding ruling, it must not silently do nothing either (that
+			// reads as broken, not as "unavailable"). Shows a real, visible error instead of a
+			// native file picker (which would break the "one app" framing this patch exists to
+			// satisfy) or plain silence (which looks like a bug). Fully disabling/hiding the
+			// native "Open…" menu item itself is a recorded follow-up, not done here -- that
+			// requires threading bridge-active state into the Rust menu-bar builder
+			// (menu_bar_message_handler.rs), a larger change than this review response's time
+			// budget covers safely.
+			editor.errorDialog("Open is unavailable here", "This embedded editor manages a single document for this job. Opening a different file isn't supported in this context.");
 			return;
 		}
 		const files = await upload(`image/*,.${editor.fileExtension()}`, "data", true);
