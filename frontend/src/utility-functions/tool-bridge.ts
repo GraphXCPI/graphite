@@ -32,6 +32,12 @@ type BridgeState = "pending" | "active" | "inactive";
 
 let state: BridgeState = "pending";
 let parentOrigin = "";
+// GraphX Studio fork (Track D, D1b, review round 1 / MIN11): the actual window object that
+// sent `init`, locked alongside `parentOrigin`. Origin alone identifies WHICH site a message
+// claims to be from; `source` identifies WHICH window/frame object actually sent it -- with
+// `allow-scripts allow-same-origin` on the iframe (TECH-D §3.2), same-origin script elsewhere
+// on the page (or a nested frame) could otherwise spoof messages that merely match the origin.
+let parentSource: MessageEventSource | undefined;
 let activeDocId: string | undefined;
 const inboundHandlers = new Set<(message: ToolBridgeInboundMessage) => void>();
 
@@ -46,13 +52,18 @@ function handleWindowMessage(event: MessageEvent) {
 	if (!isToolBridgeMessage(data)) return;
 
 	if (state === "pending" && data.type === "init") {
+		// Only `window.parent` itself may announce the bridge -- not an arbitrary same-origin
+		// window/frame that happens to guess the message shape.
+		if (event.source !== window.parent) return;
 		state = "active";
 		parentOrigin = event.origin;
+		parentSource = event.source ?? undefined;
 		activeDocId = data.docId;
 	}
 
-	// Once active, only accept further messages from the same origin that sent `init`
-	if (state === "active" && event.origin !== parentOrigin) return;
+	// Once active, only accept further messages from the exact origin AND window/frame object
+	// that sent `init` -- either check alone is spoofable by a different same-origin context.
+	if (state === "active" && (event.origin !== parentOrigin || event.source !== parentSource)) return;
 
 	inboundHandlers.forEach((handler) => handler(data));
 }

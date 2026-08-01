@@ -447,6 +447,18 @@ impl EditorWrapper {
 		self.dispatch(message);
 	}
 
+	/// GraphX Studio fork (Track D, D1b, review round 1 / B5): marks the ACTIVE document as
+	/// saved (clears its dirty/unsaved indicator). The bridge adapter (`portfolio.ts`'s
+	/// `saveRequest`/`saveResult` handling) calls this ONLY after the host confirms the REST
+	/// PUT actually succeeded -- never optimistically before that confirmation arrives, since
+	/// unlike a native file-system save or browser download (which this editor otherwise
+	/// assumes always succeeds), a bridge save can genuinely fail (409 stale revision, 413 over
+	/// a storage ceiling).
+	#[wasm_bindgen(js_name = markActiveDocumentSaved)]
+	pub fn mark_active_document_saved(&self) {
+		self.dispatch(DocumentMessage::MarkAsSaved);
+	}
+
 	#[wasm_bindgen(js_name = openFile)]
 	pub fn open_file(&self, path: String, content: Vec<u8>) {
 		let message = PortfolioMessage::OpenFile { path: PathBuf::from(path), content };

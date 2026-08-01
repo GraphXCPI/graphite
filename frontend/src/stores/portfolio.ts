@@ -74,16 +74,30 @@ export function createPortfolioStore(subscriptions: SubscriptionsRouter, editor:
 	void initToolBridge();
 
 	unsubscribeToolBridge = onToolBridgeMessage((message) => {
-		if (message.type !== "loadDocument") return;
+		if (message.type === "loadDocument") {
+			if (message.pendingImportSvg) {
+				// TECH-D §4.3 "generate": the bridge stored an agent-submitted SVG as a pending
+				// import against a new tool-doc; create the empty document and paste the SVG into
+				// it as the document's initial content.
+				editor.newDocumentWithName(message.name || undefined);
+				editor.pasteSvg(message.name || undefined, message.pendingImportSvg, undefined, undefined, undefined, undefined);
+			} else if (message.content) {
+				editor.openFile(message.name, new Uint8Array(message.content));
+			}
+			return;
+		}
 
-		if (message.pendingImportSvg) {
-			// TECH-D §4.3 "generate": the bridge stored an agent-submitted SVG as a pending
-			// import against a new tool-doc; create the empty document and paste the SVG into
-			// it as the document's initial content.
-			editor.newDocumentWithName(message.name || undefined);
-			editor.pasteSvg(message.name || undefined, message.pendingImportSvg, undefined, undefined, undefined, undefined);
-		} else if (message.content) {
-			editor.openFile(message.name, new Uint8Array(message.content));
+		if (message.type === "saveResult") {
+			// GraphX Studio fork (Track D, D1b, review round 1 / B5): a bridge save can
+			// genuinely fail (409 stale revision, 413 over a storage ceiling) -- unlike a
+			// native file-system save or browser download, which this editor otherwise
+			// assumes always succeeds. Only mark the document saved on CONFIRMED success;
+			// surface a failure to the user instead of silently discarding it.
+			if (message.ok) {
+				editor.markActiveDocumentSaved();
+			} else {
+				editor.errorDialog("Save failed", message.error || "The document could not be saved. Your changes are still open here -- try saving again.");
+			}
 		}
 	});
 
