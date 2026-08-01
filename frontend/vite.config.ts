@@ -8,9 +8,24 @@ import type { PluginOption } from "vite";
 
 const projectRootDir = path.resolve(__dirname);
 
+// GraphX Studio fork (Track D, D1b): originally unset (Vite's default `base: "/"`).
+// Discovered by direct testing, not by reading code: this build's own index.html
+// references its bundled assets with root-ABSOLUTE paths (e.g. `/assets/index-*.css`),
+// which is exactly right when served from an origin's root but collides with
+// whatever ELSE that origin serves at `/assets/*` once this bundle is served from a
+// subpath (Studio serves it at `/tools/graphite/`, per TECH-D §3.2, and Studio's own
+// vanilla app already owns `/assets/*` at the origin root). Vite's own `base` option
+// is the documented mechanism for this (https://vitejs.dev/config/shared-options.html#base)
+// -- it rewrites every built asset reference AND exposes `import.meta.env.BASE_URL` for
+// runtime code (used below by the service-worker registration patch) to stay consistent
+// with wherever this bundle is actually served from. Defaults to "/" (today's unchanged
+// standalone behavior) so a plain `cargo run build web` with no env var is a no-op.
+const BASE_PATH = process.env.GRAPHITE_BASE_PATH || "/";
+
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
 	return {
+		base: BASE_PATH,
 		plugins: [svelteGlobalStyles(), webkitUserSelectPrefix(), svelte(), staticAssets(), mode !== "native" && thirdPartyLicenses(), mode !== "native" && serviceWorker()],
 		resolve: {
 			alias: [{ find: /\/..\/branding\/(.*\.svg)/, replacement: path.resolve(projectRootDir, "../branding", "$1?raw") }],
@@ -186,7 +201,15 @@ function serviceWorker(): PluginOption {
 			allFiles.forEach((relativePath) => {
 				const fileName = path.basename(relativePath);
 				const filePath = path.join(outputDir, relativePath);
-				const url = `/${relativePath.replace(/\\/g, "/")}`;
+				// GraphX Studio fork (Track D, D1b): was hardcoded to `/${relativePath}` --
+				// a root-absolute URL, independent of the `base` config above. Under a
+				// subpath deployment (Studio serves this at /tools/graphite/) that silently
+				// precached the WRONG URLs (colliding with whatever else the origin serves
+				// at /assets/*), discovered by directly opening the built bundle at a
+				// subpath rather than by reading the code. BASE_PATH already ends with
+				// exactly one slash and relativePath never starts with one, so this is a
+				// plain concatenation, not a path-join.
+				const url = `${BASE_PATH}${relativePath.replace(/\\/g, "/")}`;
 
 				// Skip excluded files
 				if (EXCLUDED_FILES.has(fileName)) return;
@@ -215,7 +238,8 @@ function serviceWorker(): PluginOption {
 			const serviceWorkerFinal = serviceWorkerSource
 				.replace("self.__PRECACHE_MANIFEST", JSON.stringify(precacheManifest))
 				.replace("self.__DEFERRED_CACHE_MANIFEST", JSON.stringify(deferredManifest))
-				.replace("self.__SERVICE_WORKER_CONTENT_HASH", JSON.stringify(serviceWorkerContentHash));
+				.replace("self.__SERVICE_WORKER_CONTENT_HASH", JSON.stringify(serviceWorkerContentHash))
+				.replace("self.__BASE_PATH", JSON.stringify(BASE_PATH));
 
 			writeFileSync(path.join(outputDir, "service-worker.js"), serviceWorkerFinal);
 		},

@@ -91,11 +91,16 @@ export function createDialogStore(subscriptions: SubscriptionsRouter, editor: Ed
 	});
 
 	subscriptions.subscribeFrontendMessage("TriggerDisplayThirdPartyLicensesDialog", async () => {
-		const BACKUP_URL = "https://editor.graphite.art/third-party-licenses.txt";
-		let licenseText = `Content was not able to load. Please check your network connection and try again.\n\nOr visit ${BACKUP_URL} for the license notices.`;
+		// GraphX Studio fork (Track D, D1b): both the fetch path (base-path-aware, same
+		// reason as the service-worker registration patch above) and the backup message
+		// updated -- the upstream backup URL points at editor.graphite.art, which is not
+		// only a dead reference for a self-hosted fork but exactly the kind of external
+		// URL this increment's zero-network patches exist to avoid suggesting.
+		const base = import.meta.env.BASE_URL;
+		let licenseText = "Content was not able to load. Please check your network connection and try again.";
 
 		try {
-			const response = await fetch("/third-party-licenses.txt");
+			const response = await fetch(`${base}third-party-licenses.txt`);
 			if (response.ok && response.headers.get("Content-Type")?.includes("text/plain")) licenseText = await response.text();
 		} catch {
 			// Do nothing on network error

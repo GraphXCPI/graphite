@@ -2,6 +2,11 @@
 const PRECACHE_MANIFEST = self.__PRECACHE_MANIFEST;
 const DEFERRED_CACHE_MANIFEST = self.__DEFERRED_CACHE_MANIFEST;
 const SERVICE_WORKER_CONTENT_HASH = self.__SERVICE_WORKER_CONTENT_HASH;
+// GraphX Studio fork (Track D, D1b): the build's `base` (vite.config.ts's
+// GRAPHITE_BASE_PATH, e.g. "/tools/graphite/"), always trailing-slash-terminated.
+// Needed here because this script's own `cache.match("/index.html")` navigation
+// fallback was root-absolute, independent of where the bundle is actually served.
+const BASE_PATH = self.__BASE_PATH;
 
 const STATIC_CACHE_NAME = `static-${SERVICE_WORKER_CONTENT_HASH}`;
 const RUNTIME_ASSETS = "runtime-assets";
@@ -159,7 +164,7 @@ self.addEventListener("fetch", (event) => {
 		event.respondWith(
 			(async () => {
 				const cache = await caches.open(STATIC_CACHE_NAME);
-				const cached = await cache.match("/index.html");
+				const cached = await cache.match(`${BASE_PATH}index.html`);
 				return cached || fetch(request);
 			})(),
 		);

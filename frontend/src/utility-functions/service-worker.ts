@@ -1,6 +1,14 @@
 export async function registerServiceWorker() {
 	try {
-		const registration = await navigator.serviceWorker.register("/service-worker.js", { scope: "/" });
+		// GraphX Studio fork (Track D, D1b): both the registered script path and the
+		// scope must move with the build's `base` (vite.config.ts's `GRAPHITE_BASE_PATH`,
+		// e.g. "/tools/graphite/" instead of "/") -- a hardcoded "/" would ask the browser
+		// to register a service worker scoped to the WHOLE origin, which the browser
+		// refuses (a SW's scope can never exceed its own script's directory) once this
+		// bundle is served from a subpath. `import.meta.env.BASE_URL` is Vite's own
+		// runtime reflection of `base`, always trailing-slash-terminated.
+		const base = import.meta.env.BASE_URL;
+		const registration = await navigator.serviceWorker.register(`${base}service-worker.js`, { scope: base });
 
 		// GraphX Studio fork (Track D, D1b): this used to register an `updatefound` listener
 		// that called `window.location.reload()` once a new service worker activated over an
