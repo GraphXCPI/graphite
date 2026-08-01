@@ -139,5 +139,33 @@ export function postExportRequest(docId: string, name: string, mime: string, siz
 }
 
 export function postFatalError(message: string) {
+	// GraphX Studio fork (Track D, D1b, review round 2 / BLOCKER 5): every OTHER
+	// outbound message goes through `post()`, which is a no-op until the bridge is
+	// ACTIVE (a full `init` handshake has completed) -- correct for messages that
+	// carry real document data, wrong for this one. A wasm-init failure (a corrupt
+	// or truncated binary, a fetch failure, anything `App.svelte`'s `onMount` catches)
+	// happens BEFORE `initToolBridge()` is even called: that only happens from inside
+	// `createPortfolioStore`, which itself only runs once `EditorWrapper.create()`
+	// has already SUCCEEDED. So the exact failure this message exists to report is
+	// also the one case where the normal activation handshake can never complete --
+	// `post()`'s gate silently swallowed every `fatalError` a real wasm failure
+	// would ever produce (confirmed: no `postFatalError` call anywhere in this
+	// module's own history ever had a caller that could reach it post-activation).
+	//
+	// Sent unconditionally, straight to `window.parent`, at `window.location.origin`
+	// rather than the (not-yet-known, because `init` never arrived) `parentOrigin` --
+	// safe because this embed is ONLY ever served same-origin-framed (the backend's
+	// CSP is `frame-ancestors 'self'`, review round 1 / M9), so the parent's origin
+	// and this frame's own origin are always identical by construction. This is a
+	// one-shot emergency broadcast for this ONE message type; every other outbound
+	// message still requires full activation before it's ever sent.
+	if (typeof window !== "undefined" && window.parent !== window) {
+		try {
+			window.parent.postMessage({ v: 1, type: "fatalError", message }, window.location.origin);
+		} catch {
+			// no parent listening (standalone dev, or a parent that rejects postMessage) --
+			// nothing more to do here.
+		}
+	}
 	post({ v: 1, type: "fatalError", message });
 }
