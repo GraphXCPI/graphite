@@ -271,7 +271,29 @@ fn js_err(error: JsValue) -> ContainerError {
 /// segment. OPFS rejects directory names containing `/`, so a multi-segment path like
 /// `documents/<id>` must be descended one segment at a time rather than passed whole.
 async fn open_directory(directory_path: &str) -> std::result::Result<FileSystemDirectoryHandle, JsValue> {
-	let storage = web_sys::window().ok_or_else(|| JsValue::from_str("no window"))?.navigator().storage();
+	let window = web_sys::window().ok_or_else(|| JsValue::from_str("no window"))?;
+	// GraphX Studio fork (Track D, D1b, secure-context finding): `navigator.storage` is only
+	// exposed by the browser in a secure context (HTTPS or localhost), so `.storage()` below
+	// returns JS `undefined` otherwise. Calling `.get_directory()` on that `undefined` value
+	// throws a raw, non-`catch`-annotated JS TypeError that never becomes the JsValue `Err`
+	// this function's `?` operator expects -- it escapes wasm-bindgen's async plumbing entirely
+	// rather than surfacing as a normal Result, whatever this function's own caller does with
+	// that Result. Checking this up front and returning a normal `Err` here restores the same
+	// clean Result-propagation path every OTHER init failure (e.g. a corrupt wasm binary)
+	// already uses. See the matching guard in
+	// `node-graph/graph-craft/src/application_io/resource/opfs.rs::open_resource_directory` for
+	// a verified example of what that propagation actually does once it can run (a graceful
+	// in-memory fallback, for that call site's own caller) -- this crate's own callers of
+	// `open_directory` were not exercised by this session's verification (no live call site
+	// constructing an `AnyContainer::Opfs` was found in the current wasm frontend build), so
+	// this guard is defense-in-depth for the same class of bug, not independently confirmed
+	// against a reachable path.
+	if !window.is_secure_context() {
+		return Err(JsValue::from_str(
+			"Graphite requires a secure context (HTTPS or localhost) to access its storage backend; this page was loaded over an insecure origin.",
+		));
+	}
+	let storage = window.navigator().storage();
 	let mut current: FileSystemDirectoryHandle = JsFuture::from(storage.get_directory()).await?.dyn_into()?;
 
 	for segment in directory_path.split('/').filter(|segment| !segment.is_empty()) {

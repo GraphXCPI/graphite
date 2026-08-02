@@ -182,7 +182,28 @@ async fn request_persistence() {
 }
 
 async fn open_resource_directory(directory_name: &str) -> Result<FileSystemDirectoryHandle, JsValue> {
-	let storage = web_sys::window().ok_or_else(|| JsValue::from_str("no window"))?.navigator().storage();
+	let window = web_sys::window().ok_or_else(|| JsValue::from_str("no window"))?;
+	// GraphX Studio fork (Track D, D1b, secure-context finding): `navigator.storage` is
+	// `undefined` outside a secure context (HTTPS/localhost), and calling `.get_directory()`
+	// on it throws a raw JS TypeError that bypasses this function's normal `Result`
+	// propagation (the `?` operator) entirely -- it never reaches
+	// `frontend/wrapper/src/editor_wrapper.rs`'s `match OpfsResourceStorage::load(..).await`,
+	// which ALREADY falls back to an in-memory resource store on any `Err` here. The bug was
+	// never "no fallback exists" -- it's that the escaping exception stopped that existing
+	// match from ever running, so the editor's whole boot sequence hung/aborted silently
+	// instead of continuing past it. Returning a normal `Err` here lets that existing match
+	// do its job: verified directly (not assumed) that the editor now boots and stays fully
+	// usable over an insecure origin, backed by in-memory resource storage, with a clear
+	// console error naming this requirement -- see docs/product/TRACK-D-PINS.md in the studio
+	// repo for the full reproduction. Duplicated rather than shared with the matching guard in
+	// `document/container/src/backends/opfs.rs::open_directory`: separate crates in the
+	// workspace, and the guard is three lines.
+	if !window.is_secure_context() {
+		return Err(JsValue::from_str(
+			"Graphite requires a secure context (HTTPS or localhost) to access its storage backend; this page was loaded over an insecure origin.",
+		));
+	}
+	let storage = window.navigator().storage();
 	let root: FileSystemDirectoryHandle = JsFuture::from(storage.get_directory()).await?.dyn_into()?;
 
 	let options = FileSystemGetDirectoryOptions::new();
