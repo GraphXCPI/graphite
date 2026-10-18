@@ -1,1 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12"><circle cx="6.0" cy="6.0" r="3.3600000000000003" fill="currentColor" opacity="0.55"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12">
+  <g transform="translate(-345.65625 -449.35751) scale(0.27607843)">
+    <g id="Layer_x0020_1">
+      <g>
+        <path d="M1274.22 1634.38c-8.2,0 -14.84,6.64 -14.84,14.84 0,8.19 6.64,14.84 14.84,14.84 8.2,0 14.84,-6.65 14.84,-14.84 0,-8.2 -6.65,-14.84 -14.84,-14.84l0 0zm0 -3.13c9.92,0 17.97,8.05 17.97,17.97 0,9.92 -8.05,17.97 -17.97,17.97 -9.92,0 -17.97,-8.05 -17.97,-17.97 0,-9.92 8.05,-17.97 17.97,-17.97l0 0z" fill="currentColor" stroke="none" fill-rule="nonzero" clip-rule="evenodd" />
+      </g>
+    </g>
+  </g>
+</svg>

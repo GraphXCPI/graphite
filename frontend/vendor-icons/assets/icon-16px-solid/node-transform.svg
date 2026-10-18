@@ -1,1 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><circle cx="8.0" cy="8.0" r="4.48" fill="currentColor" opacity="0.55"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+  <g transform="translate(-369.21292 -480.15789) scale(0.29585327)">
+    <g id="Layer_x0020_1">
+      <path d="M1296.88 1662.5l-15.63 -9.38 0 6.25 -9.53 0.01c-0.04,-0.21 -0.09,-0.42 -0.15,-0.62l0 -5.46 -5.84 0 -0.11 -0.02 0 -9.53 6.25 0 -9.37 -15.63 -9.38 15.63 6.26 0 0 9.55 -3.83 0 0 16.52 16.02 0 0 -4.2 9.68 0 0 6.26 15.63 -9.38z" fill="currentColor" stroke="none" fill-rule="nonzero" clip-rule="evenodd" />
+    </g>
+  </g>
+</svg>

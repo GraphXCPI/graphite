@@ -1,1 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><circle cx="8.0" cy="8.0" r="4.48" fill="currentColor" opacity="0.55"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+  <g>
+    <path d="M14,15H7a1,1,0,0,1-1-1v-2h1v2H14v-7H12v-1H14a1,1,0,0,1,1,1v7A1,1,0,0,1,14,15Z" fill="currentColor" stroke="none" />
+    <rect x="1" y="1" width="9" height="9" rx="1" fill="currentColor" stroke="none" />
+  </g>
+</svg>

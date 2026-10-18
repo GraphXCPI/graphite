@@ -1,1 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><circle cx="8.0" cy="8.0" r="4.48" fill="currentColor" opacity="0.55"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+  <g transform="translate(-350.52725 -456.1) scale(0.28106061)">
+    <g id="Layer_x0020_1">
+      <g id="_517029597440">
+        <path d="M1287.52 1648.26l-2.09 0 0 2.08 4.17 0 0 -4.17 -2.08 0 0 2.09zm-25.03 -6.26l0 -6.26 -2.09 0 0 6.26 2.09 0zm27.11 0l0 -6.26 -2.08 0 0 6.26 2.08 0zm-8.34 8.34l0 -2.08 -4.17 0 0 2.08 4.17 0zm0 -20.86l0 -2.08 -4.17 0 0 2.08 4.17 0zm-8.35 0l0 -2.08 -4.17 0 0 2.08 4.17 0zm0 20.86l0 -2.08 -4.17 0 0 2.08 4.17 0zm-12.51 -18.77l2.09 0 0 -2.09 2.08 0 0 -2.08 -4.17 0 0 4.17zm0 14.6l0 4.17 4.17 0 0 -2.08 -2.08 0 0 -2.09 -2.09 0zm25.03 -16.69l2.09 0 0 2.09 2.08 0 0 -4.17 -4.17 0 0 2.08z" fill="currentColor" stroke="none" fill-rule="nonzero" clip-rule="evenodd" />
+        <g>
+          <polygon points="1264.1,1654.74 1258.95,1660.91 1263.07,1660.91 1263.07,1669.15 1265.13,1669.15 1265.13,1669.15 1270.09,1669.15 1270.09,1667.09 1265.13,1667.09 1265.13,1660.91 1269.25,1660.91 " fill="currentColor" stroke="none" fill-rule="nonzero" clip-rule="evenodd" />
+          <rect x="1272.79" y="1654.05" width="18.25" height="18.55" fill="none" stroke="currentColor" fill-rule="evenodd" clip-rule="evenodd" stroke-width="2.08" stroke-miterlimit="2.61313" />
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

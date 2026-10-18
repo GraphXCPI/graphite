@@ -1,1 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><circle cx="8.0" cy="8.0" r="4.48" fill="currentColor" opacity="0.55"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+  <defs>
+    <mask id="knockouts" maskUnits="userSpaceOnUse" x="0" y="0" width="2550" height="3300">
+      <rect x="0" y="0" width="2550" height="3300" fill="white" />
+      <g>
+        <g id="Layer_x0020_1">
+          <path d="M1289.69 1664.86c-2.5,0.99 -5,-1.49 -5.63,-5.46 -0.62,-3.98 0.94,-7.95 3.44,-8.95 2.5,-0.99 5,1.5 5.62,5.47 0.32,3.97 -0.93,7.95 -3.43,8.94z" fill="black" stroke="none" fill-rule="nonzero" clip-rule="evenodd" />
+          <path d="M1278.13 1637.81c-0.63,-2.5 0.93,-5 3.43,-5.62 2.5,-0.63 5,0.93 5.63,3.43 0.62,2.5 -0.94,5 -3.44,5.63 -2.19,0.63 -5,-0.94 -5.62,-3.44z" fill="black" stroke="none" fill-rule="nonzero" clip-rule="evenodd" />
+          <path d="M1269.48 1667.81c-4.89,0.63 -9.78,-0.94 -11,-3.43 -1.22,-2.51 1.83,-5 6.72,-5.63 4.89,-0.63 9.78,0.94 11.01,3.44 1.22,2.5 -1.84,5 -6.73,5.62z" fill="black" stroke="none" fill-rule="nonzero" clip-rule="evenodd" />
+          <rect x="1269.14" y="1644.44" width="11.72" height="11.26" fill="black" stroke="none" fill-rule="evenodd" clip-rule="evenodd" />
+          <rect x="1257.8" y="1638.67" width="7.64" height="7.34" fill="black" stroke="none" fill-rule="evenodd" clip-rule="evenodd" />
+        </g>
+      </g>
+    </mask>
+  </defs>
+  <g transform="translate(-317.81818 -413.80617) scale(0.25554367)" mask="url(#knockouts)">
+    <g id="Layer_x0020_1">
+      <path d="M1299.69 1655l-5.94 -21.56c-1.56,-5.94 -7.81,-9.69 -13.75,-7.82l-21.56 5.63c-6.25,1.56 -9.69,7.81 -8.13,13.75l5.94 21.56c1.56,5.94 7.81,9.69 13.75,7.82l21.56 -5.94c6.25,-1.25 9.69,-7.5 8.13,-13.44z" fill="currentColor" stroke="none" fill-rule="nonzero" clip-rule="evenodd" />
+      <path d="M1289.69 1664.86c-2.5,0.99 -5,-1.49 -5.63,-5.46 -0.62,-3.98 0.94,-7.95 3.44,-8.95 2.5,-0.99 5,1.5 5.62,5.47 0.32,3.97 -0.93,7.95 -3.43,8.94z" fill="none" stroke="none" fill-rule="nonzero" clip-rule="evenodd" />
+      <path d="M1278.13 1637.81c-0.63,-2.5 0.93,-5 3.43,-5.62 2.5,-0.63 5,0.93 5.63,3.43 0.62,2.5 -0.94,5 -3.44,5.63 -2.19,0.63 -5,-0.94 -5.62,-3.44z" fill="none" stroke="none" fill-rule="nonzero" clip-rule="evenodd" />
+      <path d="M1269.48 1667.81c-4.89,0.63 -9.78,-0.94 -11,-3.43 -1.22,-2.51 1.83,-5 6.72,-5.63 4.89,-0.63 9.78,0.94 11.01,3.44 1.22,2.5 -1.84,5 -6.73,5.62z" fill="none" stroke="none" fill-rule="nonzero" clip-rule="evenodd" />
+      <rect x="1269.14" y="1644.44" width="11.72" height="11.26" fill="none" stroke="none" fill-rule="evenodd" clip-rule="evenodd" />
+      <rect x="1257.8" y="1638.67" width="7.64" height="7.34" fill="none" stroke="none" fill-rule="evenodd" clip-rule="evenodd" />
+    </g>
+  </g>
+</svg>

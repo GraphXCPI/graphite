@@ -1,1 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12.0" cy="12.0" r="6.720000000000001" fill="currentColor" opacity="0.55"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <g>
+    <path d="M20,4H7v2h11v18h2V4z" fill="currentColor" stroke="none" />
+    <path d="M6,18V0H4v20h13v-2H6z" fill="currentColor" stroke="none" />
+    <rect x="21" y="18" width="3" height="2" fill="currentColor" stroke="none" />
+    <rect x="0" y="4" width="3" height="2" fill="currentColor" stroke="none" />
+    <path class="color-general" d="M21,5l3-3l-1-1l-2,2V5z" stroke="none" />
+    <path class="color-general" d="M17,7L7,17h2l8-8V7z" stroke="none" />
+  </g>
+</svg>

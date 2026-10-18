@@ -1,1 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12"><circle cx="6.0" cy="6.0" r="3.3600000000000003" fill="currentColor" opacity="0.55"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12">
+  <g transform="translate(-396.23214 -514.53571) scale(0.31547619)">
+    <g id="Layer_x0020_1">
+      <rect x="1259.38" y="1634.38" width="3.13" height="31.25" fill="currentColor" stroke="none" fill-rule="nonzero" clip-rule="evenodd" />
+      <rect x="1268.75" y="1634.38" width="3.13" height="31.25" fill="currentColor" stroke="none" fill-rule="nonzero" clip-rule="evenodd" />
+      <rect x="1278.13" y="1634.38" width="3.13" height="31.25" fill="currentColor" stroke="none" fill-rule="nonzero" clip-rule="evenodd" />
+      <rect x="1287.5" y="1634.38" width="3.13" height="31.25" fill="currentColor" stroke="none" fill-rule="nonzero" clip-rule="evenodd" />
+      <rect x="1259.38" y="1634.38" width="31.25" height="3.13" fill="currentColor" stroke="none" fill-rule="nonzero" clip-rule="evenodd" />
+      <rect x="1259.38" y="1643.75" width="31.25" height="3.13" fill="currentColor" stroke="none" fill-rule="nonzero" clip-rule="evenodd" />
+      <rect x="1259.38" y="1653.13" width="31.25" height="3.13" fill="currentColor" stroke="none" fill-rule="nonzero" clip-rule="evenodd" />
+      <rect x="1259.38" y="1662.5" width="31.25" height="3.13" fill="currentColor" stroke="none" fill-rule="nonzero" clip-rule="evenodd" />
+    </g>
+  </g>
+</svg>

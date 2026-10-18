@@ -1,1 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><circle cx="8.0" cy="8.0" r="4.48" fill="currentColor" opacity="0.55"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+  <g>
+    <path class="dim" fill-rule="evenodd" d="M6 1h4a4 4 0 0 1 4 4v5a6 6 0 0 1-12 0V5a4 4 0 0 1 4-4Zm0 1.5A2.5 2.5 0 0 0 3.5 5v5a4.5 4.5 0 0 0 9 0V5A2.5 2.5 0 0 0 10 2.5H8.75V8h-1.5V2.5H6Z" stroke="none" />
+  </g>
+</svg>

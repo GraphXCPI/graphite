@@ -1,1 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12"><circle cx="6.0" cy="6.0" r="3.3600000000000003" fill="currentColor" opacity="0.55"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12">
+  <g transform="translate(-315.78571 -410.58571) scale(0.25238095)">
+    <g id="Layer_x0020_1">
+      <path d="M1275 1631.25c-10.34,0 -18.75,8.41 -18.75,18.75 0,10.34 8.41,18.75 18.75,18.75 10.34,0 18.75,-8.41 18.75,-18.75 0,-10.34 -8.41,-18.75 -18.75,-18.75z" fill="none" stroke="currentColor" fill-rule="nonzero" clip-rule="evenodd" stroke-width="2.08" stroke-miterlimit="2.61313" />
+      <path d="M1275.98 1664.06c-1.8,0 -3.23,-1.43 -3.23,-3.23 0,-1.77 1.43,-3.24 3.23,-3.24 1.78,0 3.24,1.44 3.24,3.24 -0.03,1.8 -1.46,3.23 -3.24,3.23zm6.31 -16.76c-1.1,2.03 -3.89,2.64 -3.89,5.23l0 2.78 -5.06 0.01 0 -2.79c0,-5.32 5.29,-4.55 5.29,-8.77 0,-3.97 -6.08,-5.29 -7.79,0.42l-4.28 -1.32c3.52,-12.43 21.55,-6.36 15.73,4.44z" fill="currentColor" stroke="none" fill-rule="nonzero" clip-rule="evenodd" />
+    </g>
+  </g>
+</svg>

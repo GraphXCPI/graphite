@@ -1,1 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><circle cx="8.0" cy="8.0" r="4.48" fill="currentColor" opacity="0.55"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+  <g transform="translate(-317.81818 -413.64706) scale(0.25554367)">
+    <g id="Layer_x0020_1">
+      <path d="M1275 1634.38c-15.62,0 -25,15.62 -25,15.62 0,0 9.38,15.62 25,15.62 15.62,0 25,-15.62 25,-15.62 0,0 -9.38,-15.62 -25,-15.62zm0 28.12c-6.88,0 -12.5,-5.63 -12.5,-12.5 0,-6.87 5.63,-12.5 12.5,-12.5 6.87,0 12.5,5.63 12.5,12.5 0,6.87 -5.62,12.5 -12.5,12.5z" fill="currentColor" stroke="none" fill-rule="nonzero" clip-rule="evenodd" />
+      <circle cx="1275" cy="1650" r="3.75" fill="currentColor" stroke="none" fill-rule="nonzero" clip-rule="evenodd" />
+    </g>
+  </g>
+</svg>
