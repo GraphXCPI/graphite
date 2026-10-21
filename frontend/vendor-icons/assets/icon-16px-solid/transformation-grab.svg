@@ -1,1 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><circle cx="8.0" cy="8.0" r="4.48" fill="currentColor" opacity="0.55"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+  <g transform="translate(-369.21292 -480.15789) scale(0.29585327)">
+    <g id="Layer_x0020_1">
+      <circle cx="1260.94" cy="1664.06" r="3.91" fill="currentColor" stroke="none" fill-rule="nonzero" clip-rule="evenodd" />
+      <polygon points="1259.38,1653.13 1262.5,1653.13 1262.5,1637.5 1268.75,1637.5 1260.94,1628.12 1253.12,1637.5 1259.38,1637.5 " fill="currentColor" stroke="none" fill-rule="nonzero" clip-rule="evenodd" />
+      <polygon points="1296.88,1664.06 1287.5,1656.25 1287.5,1662.5 1271.87,1662.5 1271.87,1665.62 1287.5,1665.62 1287.5,1671.88 " fill="currentColor" stroke="none" fill-rule="nonzero" clip-rule="evenodd" />
+      <rect x="1254.87" y="1658.06" width="12.14" height="12" fill="none" stroke="currentColor" fill-rule="evenodd" clip-rule="evenodd" stroke-width="2.08" stroke-miterlimit="2.61313" />
+    </g>
+  </g>
+</svg>

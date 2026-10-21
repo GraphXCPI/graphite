@@ -1,1 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12"><circle cx="6.0" cy="6.0" r="3.3600000000000003" fill="currentColor" opacity="0.55"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12">
+  <g>
+    <g id="Layer_x0020_1">
+      <polygon points="0.5,7.37 4.63,7.37 4.63,11.5 7.37,11.5 7.37,7.37 11.5,7.37 11.5,4.63 7.37,4.63 7.37,0.5 4.63,0.5 4.63,4.63 0.5,4.63 " fill="currentColor" stroke="none" fill-rule="nonzero" clip-rule="evenodd" />
+    </g>
+  </g>
+</svg>

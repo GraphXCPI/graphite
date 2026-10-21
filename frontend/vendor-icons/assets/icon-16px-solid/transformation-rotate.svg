@@ -1,1 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><circle cx="8.0" cy="8.0" r="4.48" fill="currentColor" opacity="0.55"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+  <g transform="translate(-342.17073 -445.01155) scale(0.27424199)">
+    <g id="Layer_x0020_1">
+      <path d="M1292.19 1640.62l-7.82 9.38 6.25 0c0,8.63 -7,15.62 -15.62,15.62l0 3.13c10.34,0 18.75,-8.41 18.75,-18.75l6.25 0 -7.81 -9.38z" fill="currentColor" stroke="none" fill-rule="nonzero" clip-rule="evenodd" />
+      <path d="M1278.13 1637.5l0 -3.12c-10.35,0 -18.75,8.4 -18.75,18.75l-6.26 0 7.82 9.37 7.81 -9.37 -6.25 0c0,-8.63 7,-15.63 15.63,-15.63z" fill="currentColor" stroke="none" fill-rule="nonzero" clip-rule="evenodd" />
+      <circle cx="1276.56" cy="1651.56" r="3.91" fill="currentColor" stroke="none" fill-rule="nonzero" clip-rule="evenodd" />
+      <rect x="1270.49" y="1645.56" width="12.14" height="12" fill="none" stroke="currentColor" fill-rule="evenodd" clip-rule="evenodd" stroke-width="2.08" stroke-miterlimit="2.61313" />
+    </g>
+  </g>
+</svg>

@@ -1,1 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12"><circle cx="6.0" cy="6.0" r="3.3600000000000003" fill="currentColor" opacity="0.55"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12">
+  <g>
+    <g transform="translate(0.5 0.5) scale(0.0214844)">
+      <path fill="currentColor" d="M0 424c0-13.3 10.7-24 24-24l464 0c13.3 0 24 10.7 24 24s-10.7 24-24 24L24 448c-13.3 0-24-10.7-24-24z" stroke="none" />
+    </g>
+  </g>
+</svg>

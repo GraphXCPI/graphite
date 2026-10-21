@@ -1,1 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><circle cx="8.0" cy="8.0" r="4.48" fill="currentColor" opacity="0.55"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+  <g transform="translate(-350.4 -453.53646) scale(0.28109804)">
+    <g id="Layer_x0020_1">
+      <polygon points="1270.39,1628.64 1275.31,1627 1270.39,1625.36 1268.75,1620.44 1267.11,1625.36 1262.19,1627 1267.11,1628.64 1268.75,1633.56 " fill="currentColor" stroke="none" fill-rule="nonzero" clip-rule="evenodd" />
+      <polygon points="1260.88,1635.23 1265.88,1633.98 1260.88,1632.73 1259.63,1627.73 1258.38,1632.73 1253.38,1633.98 1258.38,1635.23 1259.63,1640.23 " fill="currentColor" stroke="none" fill-rule="nonzero" clip-rule="evenodd" />
+      <path d="M1269.84 1637.59l10.3 0 0 3.54c10.19,2.21 17.86,10.84 18.26,21.28l-3.21 0c-0.32,-8.65 -6.6,-15.86 -15.05,-17.97l0 3.45 -10.3 0 0 -3.44c-8.44,2.12 -14.71,9.32 -15.03,17.96l-3.21 0c0.39,-10.43 8.06,-19.06 18.24,-21.28l0 -3.54z" fill="currentColor" stroke="none" fill-rule="evenodd" clip-rule="evenodd" />
+    </g>
+  </g>
+</svg>

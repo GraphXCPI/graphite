@@ -1,1 +1,50 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><circle cx="8.0" cy="8.0" r="4.48" fill="currentColor" opacity="0.55"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+  <g>
+    <g transform="translate(1 1) scale(0.0273438)">
+      <path d="M504,87H8c-4.418,0-8,3.582-8,8v320c0,4.418,3.582,9,8,9h496c4.418,0,8-4.582,8-9V95  C512,90.582,508.418,87,504,87z" fill="currentColor" stroke="none" />
+      <rect x="304" y="87" width="104" height="337" fill="currentColor" stroke="none" />
+      <rect x="208" y="87" width="96" height="337" fill="currentColor" stroke="none" />
+      <rect x="104" y="87" width="104" height="337" fill="currentColor" stroke="none" />
+      <path d="M104,424H8c-4.418,0-8-3.582-8-8V95c0-4.418,3.582-8,8-8h96V424z" fill="currentColor" stroke="none" />
+      <path d="M24,408c-4.418,0-8-3.582-8-8V87H8c-4.418,0-8,3.582-8,8v321c0,4.418,3.582,8,8,8h96v-16H24z" fill="currentColor" stroke="none" />
+      <rect x="104" y="408" width="104" height="16" fill="currentColor" stroke="none" />
+      <rect x="208" y="408" width="96" height="16" fill="currentColor" stroke="none" />
+      <rect x="304" y="408" width="104" height="16" fill="currentColor" stroke="none" />
+      <path d="M503,424h-95v-16h104v7C512,419.971,507.971,424,503,424z" fill="currentColor" stroke="none" />
+      <path d="M192,0h-64c-4.418,0-8,3.582-8,8v48c0,3.03,1.712,5.8,4.422,7.155l32,16  C157.549,79.718,158.774,80,160,80s2.451-0.282,3.578-0.845l32-16C198.288,61.8,200,59.03,200,56V8C200,3.582,196.418,0,192,0z" fill="currentColor" stroke="none" />
+      <path d="M172.422,71.155l-32-16C137.712,53.8,136,51.03,136,48V0h-8c-4.418,0-8,3.582-8,8v48  c0,3.03,1.712,5.8,4.422,7.155l32,16C157.549,79.718,158.774,80,160,80s2.451-0.282,3.578-0.845l16-8  C178.451,71.718,177.226,72,176,72S173.549,71.718,172.422,71.155z" fill="currentColor" stroke="none" />
+      <path d="M387.578,448.845l-32-16c-2.254-1.126-4.902-1.126-7.156,0l-32,16C313.712,450.2,312,452.97,312,456  v48c0,4.418,3.582,8,8,8h64c4.418,0,8-3.582,8-8v-48C392,452.97,390.288,450.2,387.578,448.845z" fill="currentColor" stroke="none" />
+      <path d="M336,496c-4.418,0-8-3.582-8-8v-44.944l-11.578,5.789C313.712,450.2,312,452.97,312,456v48  c0,4.418,3.582,8,8,8h64c4.418,0,8-3.582,8-8v-8H336z" fill="currentColor" stroke="none" />
+      <g>
+</g>
+      <g>
+</g>
+      <g>
+</g>
+      <g>
+</g>
+      <g>
+</g>
+      <g>
+</g>
+      <g>
+</g>
+      <g>
+</g>
+      <g>
+</g>
+      <g>
+</g>
+      <g>
+</g>
+      <g>
+</g>
+      <g>
+</g>
+      <g>
+</g>
+      <g>
+</g>
+    </g>
+  </g>
+</svg>

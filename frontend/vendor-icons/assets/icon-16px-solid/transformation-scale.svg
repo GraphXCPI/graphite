@@ -1,1 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><circle cx="8.0" cy="8.0" r="4.48" fill="currentColor" opacity="0.55"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+  <g transform="translate(-390.61111 -507.92982) scale(0.31233115)">
+    <g id="Layer_x0020_1">
+      <circle cx="1276.56" cy="1651.56" r="3.91" fill="currentColor" stroke="none" fill-rule="nonzero" clip-rule="evenodd" />
+      <path d="M1285.28 1658.09c-0.62,0.85 -1.37,1.6 -2.22,2.22l11.1 11.1c0.78,-0.69 1.53,-1.44 2.22,-2.22l-11.1 -11.1z" fill="currentColor" stroke="none" fill-rule="nonzero" clip-rule="evenodd" />
+      <path d="M1267.84 1645.03c0.63,-0.84 1.38,-1.59 2.22,-2.22l-11.09 -11.09c-0.78,0.69 -1.53,1.44 -2.22,2.22l11.09 11.09z" fill="currentColor" stroke="none" fill-rule="nonzero" clip-rule="evenodd" />
+      <polygon points="1296.88,1671.88 1296.88,1660.94 1285.94,1671.88 " fill="currentColor" stroke="none" fill-rule="nonzero" clip-rule="evenodd" />
+      <polygon points="1256.25,1631.25 1256.25,1642.19 1267.19,1631.25 " fill="currentColor" stroke="none" fill-rule="nonzero" clip-rule="evenodd" />
+      <rect x="1270.56" y="1645.56" width="12" height="12" fill="none" stroke="currentColor" fill-rule="evenodd" clip-rule="evenodd" stroke-width="1.04" stroke-miterlimit="2.61313" />
+    </g>
+  </g>
+</svg>

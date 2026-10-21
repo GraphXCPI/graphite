@@ -33,7 +33,7 @@
 		.join(" ");
 </script>
 
-<LayoutRow class={`icon-label ${iconSizeClass} ${className} ${extraClasses}`.trim()} classes={{ disabled }} {tooltipLabel} {tooltipDescription} {tooltipShortcut}>
+<LayoutRow class={`icon-label ${iconSizeClass} ${className} ${extraClasses}`.trim()} classes={{ disabled }} {tooltipLabel} {tooltipDescription} {tooltipShortcut} data-icon={icon}>
 	{@html ICON_SVG_STRINGS[icon] || "�"}
 </LayoutRow>
 

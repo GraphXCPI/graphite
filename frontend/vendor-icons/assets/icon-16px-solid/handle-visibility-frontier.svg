@@ -1,1 +1,22 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><circle cx="8.0" cy="8.0" r="4.48" fill="currentColor" opacity="0.55"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+  <defs>
+    <mask id="knockouts" maskUnits="userSpaceOnUse" x="0" y="0" width="2550" height="3300">
+      <rect x="0" y="0" width="2550" height="3300" fill="white" />
+      <g>
+        <g id="Layer_x0020_1">
+          <rect x="1253.01" y="1657.63" width="6" height="6" fill="black" stroke="none" fill-rule="evenodd" clip-rule="evenodd" />
+          <rect x="1290.85" y="1657.57" width="6" height="6" fill="black" stroke="none" fill-rule="evenodd" clip-rule="evenodd" />
+          <rect x="1272.01" y="1636.24" width="6" height="6" fill="black" stroke="none" fill-rule="evenodd" clip-rule="evenodd" />
+        </g>
+      </g>
+    </mask>
+  </defs>
+  <g transform="translate(-350.4 -455.98679) scale(0.28109804)" mask="url(#knockouts)">
+    <g id="Layer_x0020_1">
+      <path d="M1293.11 1648.38c-1.19,-2.64 -3.26,-5.63 -6.8,-7.74l4.05 0c0.57,1.61 2.1,2.77 3.9,2.77 2.28,0 4.14,-1.86 4.14,-4.14 0,-2.28 -1.86,-4.13 -4.14,-4.13 -1.8,0 -3.33,1.15 -3.9,2.76l-10.95 0 0 -2.94 -8.82 0 0 2.94 -10.95 0c-0.57,-1.61 -2.1,-2.76 -3.9,-2.76 -2.28,0 -4.14,1.85 -4.14,4.13 0,2.28 1.86,4.14 4.14,4.14 1.8,0 3.33,-1.16 3.9,-2.77l4.29 0c-3.6,2.13 -5.71,5.15 -6.94,7.8 -1.44,3.1 -1.89,6.09 -2.03,7.78l-3.36 0 0 8.82 8.82 0 0 -8.82 -2.71 0c0.15,-1.52 0.58,-4.1 1.81,-6.71 2.17,-4.61 5.89,-7.45 11.07,-8.45l0 2.72 8.82 0 0 -2.77c5.27,0.95 9.03,3.77 11.17,8.42 1.22,2.64 1.61,5.27 1.73,6.79l-2.73 0 0 8.82 8.82 0 0 -8.82 -3.34 0c-0.12,-1.71 -0.53,-4.73 -1.95,-7.84zm0 0z" fill="currentColor" stroke="none" fill-rule="nonzero" clip-rule="evenodd" />
+      <rect x="1253.01" y="1657.63" width="6" height="6" fill="none" stroke="none" fill-rule="evenodd" clip-rule="evenodd" />
+      <rect x="1290.85" y="1657.57" width="6" height="6" fill="none" stroke="none" fill-rule="evenodd" clip-rule="evenodd" />
+      <rect x="1272.01" y="1636.24" width="6" height="6" fill="none" stroke="none" fill-rule="evenodd" clip-rule="evenodd" />
+    </g>
+  </g>
+</svg>

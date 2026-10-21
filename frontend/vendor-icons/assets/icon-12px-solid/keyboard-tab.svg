@@ -1,1 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12"><circle cx="6.0" cy="6.0" r="3.3600000000000003" fill="currentColor" opacity="0.55"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12">
+  <g transform="translate(-325.29412 -424.83679) scale(0.25983852)">
+    <g id="Layer_x0020_1">
+      <polygon points="1281.25,1656.25 1256.25,1656.25 1256.25,1659.38 1281.25,1659.38 1281.25,1665.62 1290.62,1657.81 1290.62,1665.62 1293.75,1665.62 1293.75,1650 1290.62,1650 1290.62,1657.81 1281.25,1650 " fill="currentColor" stroke="none" fill-rule="nonzero" clip-rule="evenodd" />
+    </g>
+  </g>
+</svg>
